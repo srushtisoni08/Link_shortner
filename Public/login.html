@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body class="page-container">
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="title">Welcome In</h1>
+            <p class="subtitle">Let's get you signed in.</p>
+        </div>
+        
+        <form method="POST" action="login.php" class="form-grid">
+            <div class="input-group">
+                <label for="username" class="label">Your Username</label>
+                <input type="text" id="username" name="username" required class="input-field" placeholder="e.g. yourname@email.com">
+            </div>
+            
+            <div class="input-group">
+                <label for="password" class="label">Your Password</label>
+                <input type="password" id="password" name="password" required class="input-field" placeholder="••••••••">
+            </div>
+            
+            <button type="submit" class="submit-button">
+                Log In
+            </button>
+        </form>
+        
+        <p class="auth-footer">
+            Don't have an account? 
+            <a href="signup.html" class="link">Sign up here</a>
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1 class="title">Create an Account</h1>
+      <p class="subtitle">Join us and start your journey.</p>
+    </div>
+    
+    <form method="POST" action="signup.php" class="form-grid">
+      <div class="input-group">
+        <label for="username" class="label">Username</label>
+        <input type="text" id="username" name="username" required class="input-field">
+      </div>
+      
+      <div class="input-group">
+        <label for="password" class="label">Password</label>
+        <input type="password" id="password" name="password" required class="input-field">
+      </div>
+
+      <div class="input-group">
+        <label for="confirm-password" class="label">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required class="input-field">
+      </div>
+      
+      <button type="submit" class="submit-button">Sign Up</button>
+    </form>
+    
+    <p class="auth-footer">
+      Already have an account? 
+      <a href="login.html" class="link">Log in here</a>
+    </p>
+  </div>
+
+</body>
+</html>
