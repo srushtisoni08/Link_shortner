@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // adjust path if needed
+include 'db.php'; 
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -7,10 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"] ?? null;
 
     if (!$email || !$password) {
-        die("❌ Please fill all fields!");
+        die("Please fill all fields!");
     }
 
-    // Query user by email
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -18,22 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc(); // ✅ use $user, not $email
+        $user = $result->fetch_assoc(); 
 
         if (password_verify($password, $user['Password'])) { // Changed $user['password'] to $user['Password']
             // Store session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['name'];
-
-            echo "✅ Login successful! Welcome, " . htmlspecialchars($user['name']);
-            // Or redirect:
-            // header("Location: dashboard.php");
-            // exit();
+            
+            header("Location: dashboard.php");
+           
         } else {
-            echo "❌ Invalid password!";
+            echo "Invalid password!";
         }
     } else {
-        echo "❌ No user found with that email!";
+        echo "No user found with that email!";
     }
 }
 ?>
