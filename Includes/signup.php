@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // adjust if your db.php is in another folder
+include 'db.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["username"] ?? null;
