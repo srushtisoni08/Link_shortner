@@ -2,27 +2,22 @@
 session_start();
 include 'db.php';
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../public/login.html");
     exit();
 }
 
-$shortened_link = ""; // Initialize variable
-$error_message = "";   // Initialize error message
-$user_links = [];      // Initialize an array to hold the user's links
+$shortened_link = ""; 
+$error_message = "";   
+$user_links = [];      
 
-// Handle URL shortening
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["original_url"])) {
     $o_url = trim($_POST['original_url']);
 
-    // Validate URL
     if (filter_var($o_url, FILTER_VALIDATE_URL)) {
-        // Generate unique short code
         do {
             $short_code = substr(md5(uniqid(rand(), true)), 0, 6);
             
-            // Check if short code already exists
             $check_stmt = $conn->prepare("SELECT short_code FROM urls WHERE short_code = ?");
             $check_stmt->bind_param("s", $short_code);
             $check_stmt->execute();
@@ -30,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["original_url"])) {
             $check_stmt->close();
         } while ($exists);
 
-        // Insert new URL
         $stmt = $conn->prepare("INSERT INTO urls (user_id, short_code, long_url, created_at) VALUES (?, ?, ?, NOW())");
         $stmt->bind_param("iss", $_SESSION['user_id'], $short_code, $o_url);
 
@@ -45,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["original_url"])) {
     }
 }
 
-// Fetch user's links
 $stmt_fetch = $conn->prepare("SELECT long_url, short_code, created_at FROM urls WHERE user_id = ? ORDER BY created_at DESC");
 $stmt_fetch->bind_param("i", $_SESSION['user_id']);
 $stmt_fetch->execute();
@@ -68,7 +61,11 @@ $conn->close();
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2>URL Shortener Dashboard</h2>
-            <a href="../public/logout.php" class="logout" style="color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px;">Logout</a>
+            <form method="POST" action="logout.php">
+                <button type="submit">
+                    Logout
+                </button>
+            </form>
         </div>
 
         <form method="POST" action="dashboard.php">
